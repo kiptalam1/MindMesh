@@ -6,7 +6,7 @@ export async function deletePost(req, res) {
 	const { id } = req.params;
 	//find post from the database;
 	try {
-		const deletedPost = await  Post.findByIdAndDelete(id);
+		const deletedPost = await Post.findByIdAndDelete(id);
 		//if the post is not found;
 		if (!deletedPost) {
 			return res

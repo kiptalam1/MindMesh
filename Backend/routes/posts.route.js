@@ -5,6 +5,7 @@ import {
 	getAllPosts,
 	updatePost,
 	deletePost,
+	getSinglePost,
 } from "../controllers/posts.controller.js";
 import { authenticateToken } from "../middleware/auth.middleware.js";
 
@@ -12,6 +13,7 @@ const router = express.Router();
 
 // post routes;
 router.get("/", getAllPosts);
+router.get("/:id", getSinglePost);
 router.post("/", authenticateToken, createPost);
 router.put("/:id", authenticateToken, updatePost);
 router.delete("/:id", authenticateToken, deletePost);

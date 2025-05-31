@@ -1,5 +1,29 @@
 import Post from "../models/post.model.js";
 
+
+//delete a post;
+export async function deletePost(req, res) {
+	const { id } = req.params;
+	//find post from the database;
+	try {
+		const deletedPost = await  Post.findByIdAndDelete(id);
+		//if the post is not found;
+		if (!deletedPost) {
+			return res
+				.status(404)
+				.json({ success: false, message: "Post not found" });
+		}
+		//else;
+		res.status(200).json({ success: true, message: "Post deleted", data: deletedPost });
+	} catch (error) {
+		res.status(500).json({
+			success: false,
+			message: "Server error",
+		});
+	}
+}
+
+
 //update existing post;
 export async function updatePost(req, res) {
 	const updates = req.body;

@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import bcrypt from "bcrypt";
-import User from "../models/user.model";
+import User from "../models/user.model.js";
 
 passport.use(
 	new LocalStrategy(
@@ -35,3 +35,5 @@ passport.deserializeUser(async (id, done) => {
 		done(error);
 	}
 });
+
+export default passport;

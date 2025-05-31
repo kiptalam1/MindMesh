@@ -1,5 +1,5 @@
+import mongoose from "mongoose";
 import Post from "../models/post.model.js";
-
 
 //delete a post;
 export async function deletePost(req, res) {
@@ -14,7 +14,9 @@ export async function deletePost(req, res) {
 				.json({ success: false, message: "Post not found" });
 		}
 		//else;
-		res.status(200).json({ success: true, message: "Post deleted", data: deletedPost });
+		res
+			.status(200)
+			.json({ success: true, message: "Post deleted", data: deletedPost });
 	} catch (error) {
 		res.status(500).json({
 			success: false,
@@ -22,7 +24,6 @@ export async function deletePost(req, res) {
 		});
 	}
 }
-
 
 //update existing post;
 export async function updatePost(req, res) {
@@ -30,13 +31,20 @@ export async function updatePost(req, res) {
 	const { id } = req.params;
 
 	try {
-		
 		const findPost = await Post.findByIdAndUpdate(id, updates, { new: true });
 
-		if (!findPost) return res.status(404).json({ success: false, message: "Post not found" });
+		if (!findPost)
+			return res
+				.status(404)
+				.json({ success: false, message: "Post not found" });
 
-		return res.status(200).json({success: true, message: "Post updated successfully", data: findPost})
-
+		return res
+			.status(200)
+			.json({
+				success: true,
+				message: "Post updated successfully",
+				data: findPost,
+			});
 	} catch (error) {
 		res.status(500).json({
 			success: false,
@@ -44,7 +52,6 @@ export async function updatePost(req, res) {
 		});
 	}
 }
-
 
 // write a new post;
 export async function createPost(req, res) {
@@ -90,6 +97,32 @@ export async function getAllPosts(req, res) {
 		res.status(500).json({
 			success: false,
 			message: "Sever error",
+		});
+	}
+}
+
+// Get single post by ID
+export async function getSinglePost(req, res) {
+	const { id } = req.params;
+
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+		return res.status(400).json({ success: false, message: "Invalid post ID" });
+	}
+
+	try {
+		const post = await Post.findById(id).populate("author", "username email");
+
+		if (!post) {
+			return res
+				.status(404)
+				.json({ success: false, message: "Post not found" });
+		}
+
+		res.status(200).json({ success: true, data: post });
+	} catch (error) {
+		res.status(500).json({
+			success: false,
+			message: "Server error",
 		});
 	}
 }

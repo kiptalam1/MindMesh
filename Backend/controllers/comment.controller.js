@@ -17,3 +17,68 @@ export async function createComment(req, res) {
 		});
 	}
 }
+
+
+// get comments by post;
+export async function getCommentsByPost(req, res) {
+  try {
+    const { postId } = req.params;
+
+    const comments = await Comment.find({ postId }).sort({ createdAt: -1 });
+    res.status(200).json({ success: true, data: comments });
+  } catch (error) {
+    res.status(500).json({
+			success: false,
+			message: "Server error",
+		});
+  }
+}
+
+// DELETE comment
+export async function deleteComment(req, res) {
+  try {
+    const { commentId } = req.params;
+    await Comment.findByIdAndDelete(commentId);
+
+    res.status(200).json({ success: true, message: "Comment deleted" });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+}
+
+// update a comment;
+export const updateComment = async (req, res) => {
+	try {
+		const { commentId } = req.params;
+		const { content } = req.body;
+
+		if (!content) {
+			return res
+				.status(400)
+				.json({ success: false, message: "Content is required" });
+		}
+
+		const updatedComment = await Comment.findByIdAndUpdate(
+			commentId,
+			{ content },
+			{ new: true }
+		);
+
+		if (!updatedComment) {
+			return res
+				.status(404)
+				.json({ success: false, message: "Comment not found" });
+		}
+
+		res.status(200).json({
+			success: true,
+			message: "Comment updated successfully",
+			data: updatedComment,
+		});
+	} catch (error) {
+		res.status(500).json({
+			success: false,
+			message: "Server error",
+		});
+	}
+};

@@ -6,6 +6,7 @@ import passport from "passport";
 import "./configs/passport-local.js";
 import postsRoutes from "./routes/posts.route.js";
 import authRoutes from "./routes/auth.route.js";
+import commentRoutes from "./routes/comment.route.js";
 
 mongoose
 	.connect(process.env.MONGO_URI)
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 // routes;
 app.use("/api/posts", postsRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/posts", commentRoutes);
 
 const PORT = process.env.PORT;
 // listen to app;

@@ -1,12 +1,6 @@
 import multer from "multer";
+import { storage } from "../configs/cloudinary.config.js";
 
-const storage = multer.diskStorage({}); // no local storage required;
+const upload = multer({ storage });
 
-const fileFilter = (req, file, cb) => {
-	if (file.mimetype.startsWith("image/")) {
-		cb(null, true);
-	} else {
-		cb(new Error("Please upload an image file"), false);
-	}
-};
-export default multer({ storage, fileFilter });
+export default upload;

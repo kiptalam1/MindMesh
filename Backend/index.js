@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
 import passport from "passport";
+import cors from "cors";
 import "./configs/passport-local.js";
 import postsRoutes from "./routes/posts.route.js";
 import authRoutes from "./routes/auth.route.js";
@@ -17,6 +18,8 @@ const app = express();
 
 app.use(express.json());
 app.use(passport.initialize());
+// connect to frontend;
+app.use(cors());
 
 app.get("/", (req, res) => {
 	res.json({ message: "welcome home" });

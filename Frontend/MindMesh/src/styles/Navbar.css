@@ -1,0 +1,57 @@
+.navbar {
+	width: 100%;
+	color: var(--dark-gray);
+	margin-bottom: 20px;
+}
+
+.nav-container {
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 1200px;
+	padding: 1rem;
+}
+
+.nav-container > a {
+	text-decoration: none;
+}
+.nav-container h1 {
+	text-decoration: none;
+	color: var(--whatsapp-green);
+	font-size: 1.5rem;
+}
+
+.links {
+	display: flex;
+	gap: 1.25rem;
+	justify-content: center;
+	padding: 0.5rem 1rem;
+
+	align-items: center;
+}
+
+.link {
+	font-size: 1rem;
+	text-decoration: none;
+	padding: 0.5rem 1rem;
+	color: var(--indigo);
+}
+
+.link:nth-child(4),
+.link:nth-child(5) {
+	border-radius: 1.25rem;
+	border: 1px solid var(--whatsapp-green);
+	transition: all 0.3s ease-in-out;
+}
+
+.link:nth-child(4):hover,
+.link:nth-child(5):hover {
+	text-decoration: none;
+	background-color: var(--whatsapp-green);
+	color: var(--light-grayish);
+}
+
+.link:hover {
+	text-decoration: underline;
+}

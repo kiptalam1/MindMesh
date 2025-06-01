@@ -1,0 +1,25 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+:root {
+	--indigo: #4f46e5;
+	--whatsapp-green: #25d366;
+	--light-grayish: #f8f9fa;
+	--dark-gray: #1f2937;
+}
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+		Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 16px;
+	line-height: 1.5;
+	color: var(--dark-gray);
+	background-color: var(--light-grayish);
+}

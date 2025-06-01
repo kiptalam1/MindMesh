@@ -58,7 +58,8 @@ export async function createPost(req, res) {
 	const { title, content, published, author } = req.body;
 	const imageUrl = req.file?.path;
 
-	if (!title || !content || !author)
+	if (!title || !content || !author || !imageUrl)
+		// if any of the required fields are missing;
 		return res.status(400).json({
 			success: false,
 			message: "Title, content, author and image are required",

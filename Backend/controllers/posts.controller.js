@@ -56,15 +56,22 @@ export async function updatePost(req, res) {
 // write a new post;
 export async function createPost(req, res) {
 	const { title, content, published, author } = req.body;
+	const imageUrl = req.file?.path;
 
 	if (!title || !content || !author)
 		return res.status(400).json({
 			success: false,
-			message: "Title, content, and author are required",
+			message: "Title, content, author and image are required",
 		});
 
 	try {
-		const post = new Post({ title, content, author, published: !!published });
+		const post = new Post({
+			title,
+			content,
+			author,
+			published: !!published,
+			imageUrl,
+		});
 
 		await post.save();
 		res.status(201).json({

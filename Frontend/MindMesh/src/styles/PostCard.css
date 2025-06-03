@@ -1,0 +1,88 @@
+:root {
+	--indigo: #4f46e5;
+	--whatsapp-green: #25d366;
+	--light-grayish: #f8f9fa;
+	--dark-gray: #1f2937;
+}
+
+.post-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	margin: 1rem;
+	width: 350px;
+	height: 420px;
+	overflow: hidden; /* prevents overflow */
+}
+
+.post-info {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px;
+	width: 100%;
+	overflow: hidden;
+	text-align: center;
+}
+
+.post-info h2 {
+	font-size: 20px;
+	color: var(--dark-gray);
+	margin: 0;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 100%;
+}
+
+.post-info p {
+	font-size: 0.95rem;
+	color: var(--dark-gray);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 4; /* limit lines */
+	-webkit-box-orient: vertical;
+}
+
+.post-card img {
+	width: 100%;
+	height: 225px;
+	object-fit: cover;
+	border-radius: 8px 8px 0 0;
+}
+
+.post-meta {
+	font-size: 0.75rem;
+	color: var(--whatsapp-green);
+	margin: 0;
+	padding: 0;
+	font-style: italic;
+}
+
+.post-info a {
+	text-decoration: none;
+	color: var(--indigo);
+}
+.post-info a:hover {
+	text-decoration: underline;
+}
+.post-info a:visited {
+	color: var(--dark-gray);
+}
+.post-info a:active {
+	color: var(--primary-color);
+}
+.post-info a:focus {
+	outline: 2px solid var(--primary-color);
+	outline-offset: 2px;
+}
+.post-info a:focus-visible {
+	outline: 2px solid var(--primary-color);
+	outline-offset: 2px;
+}
+.post-info a:focus:not(:focus-visible) {
+	outline: none;
+}

@@ -1,0 +1,49 @@
+.post-page {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+}
+.post-page .loading {
+	font-size: 1rem;
+	font-style: italic;
+	color: var(--indigo);
+	animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		opacity: 0.2;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.2;
+	}
+}
+
+.post-page h1 {
+	font-family: "Poppins";
+	font-size: 2rem;
+	margin-bottom: 20px;
+}
+.post-page img {
+	max-width: 100%;
+	width: 100%;
+	height: 500px;
+	margin-bottom: 20px;
+	border-radius: 10px;
+	object-fit: cover;
+}
+.post-page span {
+	align-self: flex-end;
+	color: var(--whatsapp-green);
+	font-style: italic;
+}
+.post-page p {
+	font-family: "Inter";
+	font-size: 1.2rem;
+	line-height: 1.75;
+	margin-bottom: 20px;
+}

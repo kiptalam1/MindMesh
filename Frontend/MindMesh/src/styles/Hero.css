@@ -1,0 +1,55 @@
+.hero {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 2rem;
+	/* border: 1px solid red; */
+}
+.hero-content {
+	display: flex;
+	align-items: center;
+	gap: 2.5rem;
+	/* border: 1px solid red; */
+}
+.hero-text h1 {
+	font-size: 2rem;
+	margin-bottom: 1rem;
+	color: var(--dark-gray);
+}
+.hero-text p {
+	font-size: 1.25rem;
+	font-style: oblique;
+	color: var(--dark-gray);
+	margin-bottom: 1.5rem;
+}
+
+.hero-content img {
+	width: 500px;
+	height: 500px;
+	border-radius: 50%;
+	border: 2px solid var(--whatsapp-green);
+	object-fit: cover;
+}
+.cta-buttons {
+	display: flex;
+	gap: 1.25rem;
+	margin-top: 1rem;
+}
+.btn {
+	background-color: var(--indigo);
+	color: var(--light-grayish);
+	padding: 0.5rem 1.25rem;
+	border: none;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	transition: transform 0.3s ease;
+	text-decoration: none;
+}
+.secondary {
+	background-color: var(--whatsapp-green);
+}
+.btn:hover {
+	transform: scale(1.05);
+}

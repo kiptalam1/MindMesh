@@ -91,7 +91,10 @@ export async function createPost(req, res) {
 // retrieve all the posts;
 export async function getAllPosts(req, res) {
 	try {
-		const posts = await Post.find();
+		const posts = await Post.find()
+			.populate("author", "username")
+			.sort({ createdAt: -1 });
+
 
 		if (posts.length === 0)
 			return res

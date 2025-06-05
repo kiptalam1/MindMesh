@@ -16,7 +16,7 @@ const Hero = () => {
 				<img src={heroImage} alt="Image of people brainstorming ideas." />
 			</div>
 
-			<div class="cta-buttons">
+			<div className="cta-buttons">
 				<a href="/signup" class="btn">
 					Get Started
 				</a>

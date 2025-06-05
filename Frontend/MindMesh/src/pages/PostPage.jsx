@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../styles/PostPage.css";
+import CommentForm from "../components/CommentForm";
 
 const PostPage = () => {
 	const { postId } = useParams();
@@ -29,7 +30,6 @@ const PostPage = () => {
 		<div className="post-page">
 			{loading && <p className="loading">Loading...</p>}
 			{!post && !loading && <p>Post not found</p>}
-
 			{post && (
 				<>
 					<h1>{post.title}</h1>
@@ -45,6 +45,8 @@ const PostPage = () => {
 					<p>{post.content}</p>
 				</>
 			)}
+			{/* comments section */}
+			<CommentForm postId={postId} />
 		</div>
 	);
 };

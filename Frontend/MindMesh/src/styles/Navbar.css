@@ -55,3 +55,19 @@
 .link:hover {
 	text-decoration: underline;
 }
+.logout-btn{
+	font-size: 1rem;
+	text-decoration: none;
+	padding: 0.5rem 1rem;
+	background-color: hsla(0, 100%, 50%, 0.8);
+	color: var(--light-grayish);
+	border: none;
+	border-radius: 1.25rem;
+cursor: pointer;
+	transition: all 0.3s ease-in-out;
+
+}
+.logout-btn:hover {
+	transform: scale(1.05);
+	color: var(--light-grayish);
+}

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/SignUpPage.css";
 
 const SignUpPage = () => {
@@ -10,6 +11,7 @@ const SignUpPage = () => {
 
 	const [message, setMessage] = useState("");
 	const [success, setSuccess] = useState(null);
+	const navigate = useNavigate();
 
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -39,6 +41,8 @@ const SignUpPage = () => {
 					email: "",
 					password: "",
 				});
+				// Redirect user to login page after successful signup;
+				setTimeout(() => navigate("/login"), 2000);
 			}
 		} catch (error) {
 			setMessage(error.message || "An error occurred");

@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Homepage from "./pages/Homepage";
 import PostsPage from "./pages/PostsPage";
@@ -6,19 +6,37 @@ import PostPage from "./pages/PostPage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 // import NotFound from "./pages/NotFound";
+import { useAuth } from "./contexts/AuthContext";
 
 function App() {
+	const { isAuthenticated } = useAuth();
 	return (
 		<>
-			<Navbar />
-			<Routes>
-				<Route path="/" element={<Homepage />} />
-				<Route path="/posts" element={<PostsPage />} />
-				<Route path="/posts/:postId" element={<PostPage />} />
-				<Route path="/signup" element={<SignUpPage />} />
-				<Route path="/login" element={<LoginPage />} />
-				{/* <Route path="*" element={<NotFound />} /> */}
-			</Routes>
+			{isAuthenticated === null ? (
+				<p>Loading...</p>
+			) : (
+				<>
+					<Navbar />
+					<Routes>
+						<Route path="/" element={<Homepage />} />
+						<Route path="/posts" element={<PostsPage />} />
+						<Route path="/posts/:postId" element={<PostPage />} />
+						<Route
+							path="/signup"
+							element={
+								!isAuthenticated ? <SignUpPage /> : <Navigate to="/posts" />
+							}
+						/>
+						<Route
+							path="/login"
+							element={
+								!isAuthenticated ? <LoginPage /> : <Navigate to="/posts" />
+							}
+						/>
+						{/* <Route path="*" element={<NotFound />} /> */}
+					</Routes>
+				</>
+			)}
 		</>
 	);
 }

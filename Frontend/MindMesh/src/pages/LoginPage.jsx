@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/LoginPage.css";
+import { useAuth } from "../contexts/AuthContext";
 
 const LoginPage = () => {
 	const [formData, setFormData] = useState({ email: "", password: "" });
 	const [success, setSuccess] = useState(null);
 	const [message, setMessage] = useState("");
+	const navigate = useNavigate();
+	const { login } = useAuth();
 
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,13 +33,17 @@ const LoginPage = () => {
 
 			// if login is successful; reset form after submission;
 			if (data.success) {
+				login(data.token);
 				setFormData({
 					email: "",
 					password: "",
 				});
+				// redirect user to posts page;
+				setTimeout(() => navigate("/posts"), 2000);
 			}
 		} catch (error) {
-			setMessage(error.message || "Login failed");
+			console.error("login error", error);
+			setMessage("Login failed");
 			setSuccess(false);
 		}
 	};
@@ -63,7 +71,7 @@ const LoginPage = () => {
 					className="login-input"
 					type="email"
 					name="email"
-					value={FormData.email}
+					value={formData.email}
 					placeholder="Enter your email"
 					onChange={handleChange}
 				/>
@@ -73,7 +81,7 @@ const LoginPage = () => {
 					type="password"
 					name="password"
 					placeholder="Enter your password"
-					value={FormData.password}
+					value={formData.password}
 					onChange={handleChange}
 				/>
 

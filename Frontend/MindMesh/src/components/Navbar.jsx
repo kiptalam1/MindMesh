@@ -13,9 +13,17 @@ const Navbar = () => {
 	return (
 		<div className="navbar">
 			<div className="nav-container">
-				<NavLink to={"/"}>
-					<h1>MeshMind</h1>
-				</NavLink>
+				{/* if user is already logged in then h1 redirects to posts page;
+				if user is not logged in then h1 redirects to home page; */}
+				{isAuthenticated ? (
+					<NavLink to="/posts">
+						<h1>MeshMind</h1>
+					</NavLink>
+				) : (
+					<NavLink to="/">
+						<h1>MeshMind</h1>
+					</NavLink>
+				)}
 				<div className="links">
 					<NavLink to="/" className="link">
 						Home

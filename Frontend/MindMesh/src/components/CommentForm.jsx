@@ -8,18 +8,18 @@ const CommentForm = ({ postId, onCommentAdded }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
+		console.log("Submitting comment:", content);
 		// Check if the user is authenticated;
 		if (!isAuthenticated) return;
 
 		try {
-			const response = await fetch("/api/comments", {
+			const response = await fetch(`/api/posts/${postId}/comments`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${token}`,
 				},
-				body: JSON.stringify({ postId, content }),
+				body: JSON.stringify({ content }),
 			});
 
 			const data = await response.json();
@@ -28,7 +28,7 @@ const CommentForm = ({ postId, onCommentAdded }) => {
 				// Reset the comment input field;
 				setContent("");
 				// Call the callback function to notify parent component;
-				onCommentAdded(data.comment);
+				onCommentAdded(data.data);
 			}
 		} catch (error) {
 			console.error("Error submitting comment:", error);
@@ -52,7 +52,10 @@ const CommentForm = ({ postId, onCommentAdded }) => {
 				onChange={(e) => setContent(e.target.value)}
 				name="comment"></textarea>
 			<div>
-				<button type="reset" className="comment-reset">
+				<button
+					type="button"
+					className="comment-reset"
+					onClick={() => setContent("")}>
 					Reset
 				</button>
 				<button type="submit" className="comment-submit">

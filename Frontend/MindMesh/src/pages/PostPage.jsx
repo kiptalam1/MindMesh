@@ -28,12 +28,12 @@ const PostPage = () => {
 		fetchPost();
 	}, [postId]);
 
+	// fetch all comments by post;
 	useEffect(() => {
 		const fetchComments = async () => {
 			try {
 				const comments = await fetchCommentsByPost(postId);
 				setComments(comments);
-				console.log("comments", comments);
 			} catch (error) {
 				console.error("Error fetching comments", error);
 			}
@@ -59,24 +59,32 @@ const PostPage = () => {
 					</span>
 					<p>{post.content}</p>
 					<div className="comments-section">
+						<h2>Comments</h2>
 						{comments.length === 0 ? (
 							<p>No comments yet</p>
 						) : (
-							comments.map((comment) => (
-								<ul>
+							<ul>
+								{comments.map((comment) => (
 									<li key={comment._id}>
-										<strong>{comment.author?.username || "Anonymous"}:</strong>
+										<strong>
+											~{comment.author?.username || "Anonymous"}:{" "}
+										</strong>
 										{comment.content}
 									</li>
-								</ul>
-							))
+								))}
+							</ul>
 						)}
 					</div>
 				</>
 			)}
 
 			{/* comments section */}
-			<CommentForm postId={postId} />
+			<CommentForm
+				postId={postId}
+				onCommentAdded={(newComment) =>
+					setComments((prev) => [newComment, ...prev])
+				}
+			/>
 		</div>
 	);
 };

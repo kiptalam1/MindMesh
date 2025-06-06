@@ -41,13 +41,31 @@ export async function getCommentsByPost(req, res) {
 // DELETE comment
 export async function deleteComment(req, res) {
   try {
-    const { commentId } = req.params;
-    await Comment.findByIdAndDelete(commentId);
+		const { commentId } = req.params;
+		const userId = req.user.id;
+		const isAdmin = req.user.role === "admin";
 
-    res.status(200).json({ success: true, message: "Comment deleted" });
-  } catch (err) {
-    res.status(500).json({ success: false, message: "Server error" });
-  }
+		const comment = await Comment.findById(commentId);
+
+		if (!comment) {
+			return res
+				.status(404)
+				.json({ success: false, message: "Comment not found" });
+		}
+
+		if (comment.author.toString() !== userId && !isAdmin) {
+			return res.status(403).json({
+				success: false,
+				message: "You are not authorized to delete this comment",
+			});
+		}
+		// If the user is authorized, delete the comment
+		await Comment.findByIdAndDelete(commentId);
+
+		res.status(200).json({ success: true, message: "Comment deleted" });
+	} catch (err) {
+		res.status(500).json({ success: false, message: "Server error" });
+	}
 }
 
 // update a comment;

@@ -3,8 +3,11 @@ import Comment from "../models/comment.model.js";
 // create a comment for a post;
 export async function createComment(req, res) {
 	try {
-		const { content, postId, author } = req.body;
-
+		const { content } = req.body;
+		const { postId } = req.params;
+		if (!postId) return res.status(400).json({ error: "Post ID required" });
+		const author = req.user.id;
+		if (!content) return res.status(400).json({ error: "Content required" });
 		// save comment to database;
 		const newComment = new Comment({ content, postId, author });
 		await newComment.save();
@@ -18,20 +21,21 @@ export async function createComment(req, res) {
 	}
 }
 
-
 // get comments by post;
 export async function getCommentsByPost(req, res) {
-  try {
-    const { postId } = req.params;
+	try {
+		const { postId } = req.params;
 
-    const comments = await Comment.find({ postId }).sort({ createdAt: -1 });
-    res.status(200).json({ success: true, data: comments });
-  } catch (error) {
-    res.status(500).json({
+		const comments = await Comment.find({ postId })
+			.populate("author", "username")
+			.sort({ createdAt: -1 });
+		res.status(200).json({ success: true, data: comments });
+	} catch (error) {
+		res.status(500).json({
 			success: false,
 			message: "Server error",
 		});
-  }
+	}
 }
 
 // DELETE comment

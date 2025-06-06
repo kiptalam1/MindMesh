@@ -7,6 +7,7 @@ import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 // import NotFound from "./pages/NotFound";
 import { useAuth } from "./contexts/AuthContext";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
 	const { isAuthenticated } = useAuth();
@@ -19,6 +20,7 @@ function App() {
 					<Navbar />
 					<Routes>
 						<Route path="/" element={<Homepage />} />
+						<Route path="/about" element={<AboutPage />} />
 						<Route path="/posts" element={<PostsPage />} />
 						<Route path="/posts/:postId" element={<PostPage />} />
 						<Route

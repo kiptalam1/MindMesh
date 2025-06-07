@@ -17,10 +17,10 @@ const Hero = () => {
 			</div>
 
 			<div className="cta-buttons">
-				<a href="/signup" class="btn">
+				<a href="/signup" className="btn">
 					Get Started
 				</a>
-				<a href="/posts" class="btn secondary">
+				<a href="/posts" className="btn secondary">
 					Browse Posts
 				</a>
 			</div>

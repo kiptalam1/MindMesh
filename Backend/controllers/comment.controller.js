@@ -53,7 +53,7 @@ export async function deleteComment(req, res) {
 				.json({ success: false, message: "Comment not found" });
 		}
 
-		if (comment.author.toString() !== userId && !isAdmin) {
+		if (comment.author?.toString() !== userId && !isAdmin) {
 			return res.status(403).json({
 				success: false,
 				message: "You are not authorized to delete this comment",
@@ -64,6 +64,7 @@ export async function deleteComment(req, res) {
 
 		res.status(200).json({ success: true, message: "Comment deleted" });
 	} catch (err) {
+		console.error("Delete comment error:", err);
 		res.status(500).json({ success: false, message: "Server error" });
 	}
 }

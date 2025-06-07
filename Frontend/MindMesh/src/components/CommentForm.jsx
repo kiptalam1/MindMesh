@@ -8,7 +8,7 @@ const CommentForm = ({ postId, onCommentAdded }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log("Submitting comment:", content);
+
 		// Check if the user is authenticated;
 		if (!isAuthenticated) return;
 

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { LuDelete } from "react-icons/lu";
-import { RiDeleteBin6Line, RiDeleteBin6Fill } from "react-icons/ri";
+import { RiDeleteBin6Fill } from "react-icons/ri";
 
 import "../styles/PostPage.css";
 import CommentForm from "../components/CommentForm";
@@ -13,6 +12,8 @@ const PostPage = () => {
 	const [post, setPost] = useState(null);
 	const [comments, setComments] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [success, setSuccess] = useState(null);
+	const [message, setMessage] = useState("");
 	const { token, user } = useAuth();
 
 	useEffect(() => {
@@ -46,8 +47,26 @@ const PostPage = () => {
 		fetchComments();
 	}, [postId]);
 
+	// delete message after 5 seconds;
+	useEffect(() => {
+		if (message) {
+			const timer = setTimeout(() => {
+				setMessage("");
+				setSuccess(null);
+			}, 5000);
+
+			return () => clearTimeout(timer);
+		}
+	}, [message, success]);
+
 	return (
 		<div className="post-page">
+			{message && (
+				<div className={`message-banner ${success ? "success" : "error"}`}>
+					{message}
+				</div>
+			)}
+
 			{loading && <p className="loading">Loading...</p>}
 			{!post && !loading && <p>Post not found</p>}
 			{post && (
@@ -93,6 +112,10 @@ const PostPage = () => {
 															}
 														);
 														const data = await res.json();
+
+														setMessage(data.message);
+														setSuccess(data.success);
+
 														if (data.success) {
 															setComments((prev) =>
 																prev.filter((c) => c._id !== comment._id)
@@ -100,6 +123,8 @@ const PostPage = () => {
 														}
 													} catch (err) {
 														console.error("Delete failed:", err);
+														setSuccess(false);
+														setMessage("Failed to delete comment");
 													}
 												}}
 												className="delete-comment-btn">

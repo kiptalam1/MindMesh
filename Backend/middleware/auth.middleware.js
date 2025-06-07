@@ -14,8 +14,6 @@ export function authenticateToken(req, res, next) {
 		req.user = decoded;
 		next();
 	} catch (err) {
-		return res
-			.status(403)
-			.json({ success: false, message: "Invalid or expired token." });
+		return res.status(403).json({ success: false, message: "No permission" });
 	}
 }

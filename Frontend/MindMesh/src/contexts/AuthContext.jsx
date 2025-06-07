@@ -5,6 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 	const [token, setToken] = useState(null);
+	const [user, setUser] = useState(null);
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 	// check if toke is expired;
@@ -21,8 +22,10 @@ export const AuthProvider = ({ children }) => {
 	useEffect(() => {
 		const storedToken = localStorage.getItem("token");
 		if (storedToken && !isTokenExpired(storedToken)) {
+			const decodedUser = jwtDecode(storedToken);
 			setToken(storedToken);
 			setIsAuthenticated(true);
+			setUser(decodedUser);
 		} else {
 			logout(); // remove token if expired or not present;
 		}
@@ -41,7 +44,8 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	return (
-		<AuthContext.Provider value={{ token, login, logout, isAuthenticated }}>
+		<AuthContext.Provider
+			value={{ token, login, logout, isAuthenticated, user }}>
 			{children}
 		</AuthContext.Provider>
 	);

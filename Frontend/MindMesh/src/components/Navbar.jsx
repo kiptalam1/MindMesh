@@ -1,10 +1,21 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { LuMoonStar, LuSun } from "react-icons/lu";
 import "../styles/Navbar.css";
 import { useAuth } from "../contexts/AuthContext";
 
 const Navbar = () => {
 	const { isAuthenticated, logout } = useAuth();
 	const navigate = useNavigate();
+
+	const [darkMode, setDarkMode] = useState(
+		() => localStorage.getItem("theme") === "dark"
+	);
+
+	useEffect(() => {
+		document.body.classList.toggle("dark-mode", darkMode);
+		localStorage.setItem("theme", darkMode ? "dark" : "light");
+	}, [darkMode]);
 
 	const handleLogout = () => {
 		logout();
@@ -50,6 +61,11 @@ const Navbar = () => {
 							</NavLink>
 						</>
 					)}
+					<button
+						className="toggle-btn"
+						onClick={() => setDarkMode((prev) => !prev)}>
+						{darkMode ? <LuSun /> : <LuMoonStar />}
+					</button>
 				</div>
 			</div>
 		</div>

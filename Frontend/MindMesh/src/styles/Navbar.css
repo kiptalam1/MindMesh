@@ -27,7 +27,7 @@
 	gap: 1.25rem;
 	justify-content: center;
 	padding: 0.5rem 1rem;
-cursor:pointer;
+	cursor:pointer;
 	align-items: center;
 }
 
@@ -59,15 +59,20 @@ cursor:pointer;
 	font-size: 1rem;
 	text-decoration: none;
 	padding: 0.5rem 1rem;
-	background-color: hsla(0, 100%, 50%, 0.8);
-	color: var(--light-grayish);
+	background-color: var(--red);
+	color: white;
 	border: none;
 	border-radius: 1.25rem;
-cursor: pointer;
+	cursor: pointer;
 	transition: all 0.3s ease-in-out;
 
 }
 .logout-btn:hover {
 	transform: scale(1.05);
 	color: var(--light-grayish);
+}
+.toggle-btn {
+	background: transparent;
+	font-size: 1.75rem;
+	color: var(--icon);
 }

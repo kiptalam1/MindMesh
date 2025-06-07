@@ -1,9 +1,3 @@
-:root {
-	--indigo: #4f46e5;
-	--whatsapp-green: #25d366;
-	--light-grayish: #f8f9fa;
-	--dark-gray: #1f2937;
-}
 
 .post-card {
 	display: flex;
@@ -15,7 +9,12 @@
 	width: 350px;
 	height: 420px;
 	overflow: hidden; /* prevents overflow */
+	transition: all 0.3s ease-in-out;
 }
+
+.post-card:hover {
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+	transform: translateY(-5px);}
 
 .post-info {
 	display: flex;
@@ -29,7 +28,7 @@
 
 .post-info h2 {
 	font-size: 20px;
-	color: var(--dark-gray);
+	color: var(--text);
 	margin: 0;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -39,7 +38,7 @@
 
 .post-info p {
 	font-size: 0.95rem;
-	color: var(--dark-gray);
+	color: var(--text);
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
@@ -64,25 +63,12 @@
 
 .post-info a {
 	text-decoration: none;
-	color: var(--indigo);
+	color: #25d366;
+	cursor: pointer;
 }
 .post-info a:hover {
 	text-decoration: underline;
 }
 .post-info a:visited {
-	color: var(--dark-gray);
-}
-.post-info a:active {
-	color: var(--primary-color);
-}
-.post-info a:focus {
-	outline: 2px solid var(--primary-color);
-	outline-offset: 2px;
-}
-.post-info a:focus-visible {
-	outline: 2px solid var(--primary-color);
-	outline-offset: 2px;
-}
-.post-info a:focus:not(:focus-visible) {
-	outline: none;
+	color: #1b5f13;
 }

@@ -1,0 +1,47 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: "Poppins", "Inter", sans-serif;
+}
+:root {
+	--bg: whitesmoke;
+	--text: #333;
+	--blue: #007bff;
+	--whatsapp-green: #25d366;
+	--red: #dc3545;
+}
+body.dark {
+	--bg: #121212;
+	--text: #e0e0e0;
+	--blue: #1e90ff;
+	--whatsapp-green: #25d366;
+	--red: #dc3545;
+}
+body {
+	background-color: var(--bg);
+	color: var(--text);
+	font-size: 16px;
+	line-height: 1.5;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100vh;
+	min-width: 100vw;
+	width: 100%;
+	padding: 0 20px;
+	gap: 20px;
+}
+a {
+	color: var(--blue);
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+h1 {
+	font-family: "Inter", sans-serif;
+	font-size: 1.618rem;
+}

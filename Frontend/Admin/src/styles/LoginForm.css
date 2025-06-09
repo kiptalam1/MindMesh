@@ -1,0 +1,76 @@
+.login-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+	width: 500px;
+	height: 400px;
+	max-width: 500px;
+	max-height: 400px;
+	margin: 80px auto;
+	box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 1rem;
+	padding: 40px;
+	justify-self: center;
+}
+.input-field {
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 10px;
+	border: none;
+	border-radius: 1rem;
+	font-size: 1rem;
+}
+.input-field:focus {
+	outline: 2px solid var(--blue);
+}
+.login-btn {
+	background-color: var(--blue);
+	color: white;
+	border: none;
+	border-radius: 1rem;
+	padding: 10px 20px;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	width: 100%;
+}
+.login-btn:hover {
+	background-color: hsla(210, 100%, 56%, 0.75);
+}
+.message-banner {
+	position: fixed;
+	top: -100px;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 1rem 2rem;
+	border-radius: 1rem;
+	color: var(--text);
+	font-weight: bold;
+	font-size: 0.9rem;
+	z-index: 999;
+	animation: slideDown 0.5s ease-out forwards, fadeOut 1s ease-in 8s forwards;
+}
+.message-banner.success {
+	background-color: var(--whatsapp-green);
+}
+.message-banner.error {
+	background-color: var(--red);
+}
+@keyframes slideDown {
+	from {
+		top: -100px;
+	}
+	to {
+		top: 20px;
+	}
+}
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}

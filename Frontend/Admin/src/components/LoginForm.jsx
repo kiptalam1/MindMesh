@@ -24,7 +24,7 @@ const LoginForm = () => {
 
 			const data = await response.json();
 			setMessage(data.message);
-			setSuccess(true);
+			setSuccess(data.success);
 
 			if (data.success) {
 				setFormData({ email: "", password: "" });
@@ -44,7 +44,7 @@ const LoginForm = () => {
 			const timer = setTimeout(() => {
 				setMessage("");
 				setSuccess(null);
-			}, 5000);
+			}, 4000);
 			return () => clearTimeout(timer);
 		}
 	}, [message]);

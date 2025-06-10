@@ -8,17 +8,21 @@
 }
 :root {
 	--bg: whitesmoke;
+	--form-bg: white;
 	--text: #333;
 	--blue: #007bff;
 	--whatsapp-green: #25d366;
 	--red: #dc3545;
+	--icon: rgb(255, 204, 0);
 }
 body.dark {
-	--bg: #121212;
+	--bg: #0d1117 ;
+	--form-bg: #161b22;
 	--text: #e0e0e0;
 	--blue: #1e90ff;
 	--whatsapp-green: #25d366;
 	--red: #dc3545;
+	--icon: rgb(255, 128, 0);
 }
 body {
 	background-color: var(--bg);

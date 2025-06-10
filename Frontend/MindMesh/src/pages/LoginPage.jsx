@@ -29,7 +29,7 @@ const LoginPage = () => {
 			const data = await res.json();
 
 			setMessage(data.message);
-			setSuccess(true);
+			setSuccess(data.success);
 
 			// if login is successful; reset form after submission;
 			if (data.success) {
@@ -53,7 +53,7 @@ const LoginPage = () => {
 			const timer = setTimeout(() => {
 				setMessage("");
 				setSuccess(null);
-			}, 9000);
+			}, 3000);
 			return () => clearTimeout(timer);
 		}
 	}, [message]);

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { LiaHomeSolid, LiaCommentsSolid } from "react-icons/lia";
 import { FaRegUser } from "react-icons/fa";
 import { BsSignpostSplit } from "react-icons/bs";
@@ -10,19 +10,19 @@ const Dashboard = () => {
 	return (
 		<div className="dashboard">
 			<aside className="sidebar">
-				<NavLink to="/dashboard" className="sidebar-link">
+				<NavLink to="/dashboard" className="sidebar-link" end>
 					<LiaHomeSolid className="sidebar-icon" />
 					Home
 				</NavLink>
-				<NavLink to="/posts" className="sidebar-link">
+				<NavLink to="/dashboard/posts" className="sidebar-link">
 					<BsSignpostSplit className="sidebar-icon" />
 					Posts
 				</NavLink>
-				<NavLink to="/users" className="sidebar-link">
+				<NavLink to="/dashboard/users" className="sidebar-link">
 					<FaRegUser className="sidebar-icon" />
 					Users
 				</NavLink>
-				<NavLink to="/comments" className="sidebar-link">
+				<NavLink to="/dashboard/comments" className="sidebar-link">
 					<LiaCommentsSolid className="sidebar-icon" />
 					Comments
 				</NavLink>
@@ -32,8 +32,7 @@ const Dashboard = () => {
 				</NavLink>
 			</aside>
 			<main className="content">
-				<h1>Dashboard</h1>
-				<p>Welcome to the admin dashboard!</p>
+				<Outlet />
 			</main>
 		</div>
 	);

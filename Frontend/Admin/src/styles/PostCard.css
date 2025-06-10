@@ -1,0 +1,74 @@
+.post-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	margin: 1rem;
+	width: 350px;
+	height: 420px;
+	overflow: hidden; /* prevents overflow */
+	transition: all 0.3s ease-in-out;
+}
+
+.post-card:hover {
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+	transform: translateY(-5px);
+}
+
+.post-info {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px;
+	width: 100%;
+	overflow: hidden;
+	text-align: center;
+}
+
+.post-info h2 {
+	font-size: 20px;
+	color: var(--text);
+	margin: 0;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 100%;
+}
+
+.post-info p {
+	font-size: 0.95rem;
+	color: var(--text);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 4; /* limit lines */
+	-webkit-box-orient: vertical;
+}
+
+.post-card img {
+	width: 100%;
+	height: 225px;
+	object-fit: cover;
+	border-radius: 8px 8px 0 0;
+}
+
+.post-meta {
+	font-size: 0.75rem;
+	color: var(--whatsapp-green);
+	margin: 0;
+	padding: 0;
+	font-style: italic;
+}
+
+.post-info a {
+	text-decoration: none;
+	color: #25d366;
+	cursor: pointer;
+}
+.post-info a:hover {
+	text-decoration: underline;
+}
+.post-info a:visited {
+	color: #1b5f13;
+}

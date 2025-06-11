@@ -1,0 +1,48 @@
+.post {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	width: 100%;
+	padding: 1rem;
+}
+.post .back-button {
+	align-self: flex-start;
+	padding: 8px 16px;
+	background-color: var(--whatsapp-green);
+	width: max-content;
+	color: whitesmoke;
+	border: none;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	font-size: 1.15rem;
+	transition: transform 0.3s ease;
+}
+.post .back-button:hover {
+	transform: scaleX(1.05);
+}
+.post .back-button:active {
+	transform: scaleX(0.7);
+}
+.post h1 {
+	text-align: center;
+}
+.post img {
+	border-radius: 1rem;
+	object-fit: cover;
+	height: 500px;
+	width: auto;
+}
+.post span {
+	align-self: flex-end;
+	color: var(--whatsapp-green);
+	font-size: 0.9rem;
+	font-style: italic;
+}
+.post p {
+	line-height: 2;
+	font-size: 1rem;
+}
+.post div {
+	color: var(--blue);
+	font-size: 0.9rem;
+}

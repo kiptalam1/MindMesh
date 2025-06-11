@@ -12,7 +12,7 @@ const PostCard = ({ post }) => {
 					By {post.author?.username || "Unknown"} · {formattedDate}
 				</span>
 				<p>{post.content.slice(0, 100)}...</p>
-				<a href={`/posts/${post._id}`}>Read more...</a>
+				<a href={`/dashboard/posts/${post._id}`}>Read more...</a>
 			</div>
 		</div>
 	);

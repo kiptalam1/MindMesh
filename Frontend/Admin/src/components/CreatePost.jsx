@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "../styles/CreatePost.css";
 import { Editor } from "@tinymce/tinymce-react";
 import { useAuth } from "../contexts/AuthContext";
 

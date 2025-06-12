@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import PostCard from "./PostCard";
 import "../styles/Posts.css";
 
@@ -7,6 +8,7 @@ const Posts = () => {
 	const [loading, setLoading] = React.useState(true);
 	const [message, setMessage] = React.useState(null);
 	const [success, setSuccess] = React.useState(false);
+	const navigate = useNavigate();
 	// Fetch posts from the API
 	React.useEffect(() => {
 		const fetchAllPosts = async () => {
@@ -51,23 +53,31 @@ const Posts = () => {
 	}, [message]);
 
 	return (
-		<div className="posts">
-			{/*  handle message display; */}
-			{message && (
-				<div className={`message-banner ${success ? "success" : "error"}`}>
-					{message}
-				</div>
-			)}
+		<>
+			{/* create post button */}
+			<button
+				onClick={() => navigate("/dashboard/posts/new-post")}
+				className="create-post-button">
+				+ Create new post
+			</button>
+			<div className="posts">
+				{/*  handle message display; */}
+				{message && (
+					<div className={`message-banner ${success ? "success" : "error"}`}>
+						{message}
+					</div>
+				)}
 
-			{/* display the posts */}
-			{loading ? (
-				<div className="loading">loading...</div>
-			) : posts.length > 0 ? (
-				posts.map((post) => <PostCard key={post._id} post={post} />)
-			) : (
-				<div>No posts found</div>
-			)}
-		</div>
+				{/* display the posts */}
+				{loading ? (
+					<div className="loading">loading...</div>
+				) : posts.length > 0 ? (
+					posts.map((post) => <PostCard key={post._id} post={post} />)
+				) : (
+					<div>No posts found</div>
+				)}
+			</div>
+		</>
 	);
 };
 

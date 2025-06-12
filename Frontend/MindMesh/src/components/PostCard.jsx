@@ -1,4 +1,6 @@
 import React from "react";
+import stripTags from "striptags";
+
 import "../styles/PostCard.css";
 
 const PostCard = ({ post }) => {
@@ -12,7 +14,7 @@ const PostCard = ({ post }) => {
 				<span className="post-meta">
 					By {post.author?.username || "Unknown"} · {formattedDate}
 				</span>
-				<p>{post.content.slice(0, 100)}...</p>
+				<p>{stripTags(post.content.slice(0, 100))}...</p>
 				<a href={`/posts/${post._id}`}>Read more...</a>
 			</div>
 		</div>

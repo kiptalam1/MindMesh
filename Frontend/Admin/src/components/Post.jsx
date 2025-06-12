@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import stripTags from "striptags";
+
 import { useNavigate, useParams } from "react-router-dom";
 import "../styles/Post.css";
 
@@ -80,7 +82,7 @@ const Post = () => {
 							dateStyle: "long",
 						})}
 					</span>
-					<p>{post.content}</p>
+					<p>{stripTags(post.content)}</p>
 				</>
 			) : (
 				<div>No posts found</div>

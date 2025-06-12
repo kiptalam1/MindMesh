@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import stripTags from "striptags";
 
 import "../styles/PostPage.css";
 import CommentForm from "../components/CommentForm";
@@ -81,7 +82,7 @@ const PostPage = () => {
 							day: "numeric",
 						})}
 					</span>
-					<p>{post.content}</p>
+					<p>{stripTags(post.content)}</p>
 					<div className="comments-section">
 						<h2>Comments</h2>
 						{comments.length === 0 ? (

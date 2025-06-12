@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
+import User from "../models/user.model.js";
 
-export function authenticateToken(req, res, next) {
+export async function authenticateToken(req, res, next) {
 	const authHeader = req.headers.authorization;
 	const token = authHeader && authHeader.split(" ")[1];
 
@@ -11,7 +12,7 @@ export function authenticateToken(req, res, next) {
 
 	try {
 		const decoded = jwt.verify(token, process.env.JWT_SECRET);
-		req.user = decoded;
+		req.user = await User.findById(decoded.id).select("-password");
 		next();
 	} catch (err) {
 		return res.status(403).json({ success: false, message: "No permission" });

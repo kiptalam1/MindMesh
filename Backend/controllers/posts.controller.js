@@ -55,21 +55,21 @@ export async function updatePost(req, res) {
 
 // write a new post;
 export async function createPost(req, res) {
-	const { title, content, published, author } = req.body;
-	const imageUrl = req.file?.path;
+	const { title, content, published, imageUrl: bodyImageUrl } = req.body;
+	const imageUrl = req.file?.path || bodyImageUrl;
 
-	if (!title || !content || !author || !imageUrl)
-		// if any of the required fields are missing;
+	if (!title || !content || !req.user?._id || !imageUrl) {
 		return res.status(400).json({
 			success: false,
 			message: "Title, content, author and image are required",
 		});
+	}
 
 	try {
 		const post = new Post({
 			title,
 			content,
-			author,
+			author: req.user._id,
 			published: !!published,
 			imageUrl,
 		});
@@ -87,6 +87,7 @@ export async function createPost(req, res) {
 		});
 	}
 }
+
 
 // retrieve all the posts;
 export async function getAllPosts(req, res) {

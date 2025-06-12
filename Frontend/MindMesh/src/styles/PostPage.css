@@ -41,7 +41,7 @@
 	color: var(--whatsapp-green);
 	font-style: italic;
 }
-.post-page p {
+.post-page .post-content {
 	font-family: "Inter";
 	font-size: 1.2rem;
 	line-height: 1.75;

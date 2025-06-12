@@ -38,11 +38,11 @@
 	font-size: 0.9rem;
 	font-style: italic;
 }
-.post p {
+.post-content {
 	line-height: 2;
 	font-size: 1rem;
 }
-.post div {
+.no-posts {
 	color: var(--blue);
 	font-size: 0.9rem;
 }

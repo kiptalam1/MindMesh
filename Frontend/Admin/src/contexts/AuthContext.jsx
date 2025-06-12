@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
@@ -35,6 +35,13 @@ export const AuthProvider = ({ children }) => {
 		setToken(jwt);
 		localStorage.setItem("token", jwt);
 		setIsAuthenticated(true);
+
+		try {
+			const decodedUser = jwtDecode(jwt);
+			setUser(decodedUser);
+		} catch {
+			setUser(null);
+		}
 	};
 	const logout = () => {
 		setToken(null);
@@ -49,3 +56,7 @@ export const AuthProvider = ({ children }) => {
 		</AuthContext.Provider>
 	);
 };
+// eslint-disable-next-line react-refresh/only-export-components
+export function useAuth() {
+	return useContext(AuthContext);
+}

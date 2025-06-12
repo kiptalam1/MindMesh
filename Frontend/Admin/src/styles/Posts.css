@@ -1,3 +1,26 @@
+
+.create-post-button {
+	margin-right: 4rem;
+	margin-bottom: 1rem;
+	align-self: flex-end;
+	padding: 8px 16px;
+	background-color: var(--whatsapp-green);
+	width: max-content;
+	color: whitesmoke;
+	border: none;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	font-size: 1.15rem;
+	transition: transform 0.3s ease;
+}
+.create-post-button:hover {
+	transform: scaleX(1.05);
+}
+.create-post-button:active {
+	transform: scaleX(0.7);
+}
+
+
 .posts {
 	display: flex;
 	flex-wrap: wrap;

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { data, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import "../styles/LoginForm.css";
 
 const LoginForm = () => {
@@ -9,6 +10,7 @@ const LoginForm = () => {
 		email: "",
 		password: "",
 	});
+	const { login } = useAuth();
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
@@ -27,6 +29,7 @@ const LoginForm = () => {
 			setSuccess(data.success);
 
 			if (data.success) {
+				login(data.token);
 				setFormData({ email: "", password: "" });
 				setTimeout(() => {
 					navigate("/dashboard");

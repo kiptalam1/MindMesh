@@ -5,7 +5,8 @@ import Header from "./components/Header.jsx";
 import DashboardHome from "./components/DashboardHome.jsx";
 import Posts from "./components/Posts.jsx";
 import Post from "./components/Post.jsx";
-import CreatePost from "./components/CreatePost.jsx";
+import PostForm from "./components/PostForm.jsx";
+import Logout from "./pages/Logout.jsx";
 
 const App = () => {
 	return (
@@ -13,11 +14,13 @@ const App = () => {
 			<Header />
 			<Routes>
 				<Route path="/" element={<Homepage />} />
+				<Route path="/logout" element={<Logout />} />
 				<Route path="/dashboard" element={<Dashboard />}>
 					<Route index element={<DashboardHome />} />
 					<Route path="posts" element={<Posts />} />
 					<Route path="posts/:postId" element={<Post />} />
-					<Route path="posts/new-post" element={<CreatePost />} />
+					<Route path="posts/new-post" element={<PostForm />} />
+					<Route path="posts/edit/:postId" element={<PostForm />} />
 				</Route>
 			</Routes>
 		</>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { data, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { jwtDecode } from "jwt-decode"; // make sure this is installed
 import "../styles/LoginForm.css";
 
 const LoginForm = () => {
@@ -10,6 +11,7 @@ const LoginForm = () => {
 		email: "",
 		password: "",
 	});
+
 	const { login } = useAuth();
 	const navigate = useNavigate();
 
@@ -29,15 +31,25 @@ const LoginForm = () => {
 			setSuccess(data.success);
 
 			if (data.success) {
+				const decoded = jwtDecode(data.token);
+
+				if (decoded.role !== "admin") {
+					setSuccess(false);
+					setMessage("Access denied: Admins only.");
+					return;
+				}
+
 				login(data.token);
 				setFormData({ email: "", password: "" });
+
+				// Optional: redirect sooner
 				setTimeout(() => {
 					navigate("/dashboard");
-				}, 5000);
+				}, 1000);
 			}
 		} catch (error) {
 			console.error("Login failed:", error);
-			setMessage(data.message || "Login failed");
+			setMessage("Login failed. Please try again.");
 			setSuccess(false);
 		}
 	};
@@ -47,7 +59,7 @@ const LoginForm = () => {
 			const timer = setTimeout(() => {
 				setMessage("");
 				setSuccess(null);
-			}, 4000);
+			}, 2000);
 			return () => clearTimeout(timer);
 		}
 	}, [message]);
@@ -62,7 +74,6 @@ const LoginForm = () => {
 
 	return (
 		<form className="login-form" onSubmit={handleSubmit}>
-			{/*  handle message display; */}
 			{message && (
 				<div className={`message-banner ${success ? "success" : "error"}`}>
 					{message}

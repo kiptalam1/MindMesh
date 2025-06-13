@@ -52,6 +52,11 @@ const Posts = () => {
 		}
 	}, [message]);
 
+	// delete a post;
+	const handlePostDelete = (deletedId) => {
+		setPosts((prev) => prev.filter((post) => post._id !== deletedId));
+	};
+
 	return (
 		<>
 			{/* create post button */}
@@ -72,7 +77,13 @@ const Posts = () => {
 				{loading ? (
 					<div className="loading">loading...</div>
 				) : posts.length > 0 ? (
-					posts.map((post) => <PostCard key={post._id} post={post} />)
+					posts.map((post) => (
+						<PostCard
+							key={post._id}
+							post={post}
+							onPostDelete={handlePostDelete}
+						/>
+					))
 				) : (
 					<div>No posts found</div>
 				)}

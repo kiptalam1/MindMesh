@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "../styles/CreatePost.css";
 import { Editor } from "@tinymce/tinymce-react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import "../styles/PostForm.css";
 
-const CreatePost = () => {
+const PostForm = () => {
+	const { postId } = useParams(); // null when creating, set when editing
+	const isEditMode = Boolean(postId);
+
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
 	const [isPublished, setIsPublished] = useState(false);
@@ -13,7 +17,28 @@ const CreatePost = () => {
 	const [message, setMessage] = useState("");
 
 	const { user, token } = useAuth();
-	// console.log(user, token);
+	const navigate = useNavigate();
+	// ✅ Fetch post data for editing
+	useEffect(() => {
+		if (isEditMode) {
+			const fetchPost = async () => {
+				try {
+					const res = await fetch(`/api/posts/${postId}`);
+					if (!res.ok) throw new Error("Failed to fetch post");
+					const data = await res.json();
+
+					setTitle(data.data.title);
+					setContent(data.data.content);
+					setIsPublished(data.data.published);
+					setImageUrl(data.data.imageUrl || "");
+				} catch (err) {
+					console.error(err);
+					setMessage("Could not load post for editing");
+				}
+			};
+			fetchPost();
+		}
+	}, [isEditMode, postId]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -49,8 +74,8 @@ const CreatePost = () => {
 		}
 
 		try {
-			const res = await fetch("/api/posts", {
-				method: "POST",
+			const res = await fetch(`/api/posts/${postId || ""}`, {
+				method: isEditMode ? "PUT" : "POST",
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -63,18 +88,21 @@ const CreatePost = () => {
 			}
 
 			const data = await res.json();
-
 			setSuccess(data.success);
 			setMessage(data.message);
 
-			// Reset form
-			setTitle("");
-			setContent("");
-			setIsPublished(false);
-			setImage(null);
-			setImageUrl("");
+			// On success: navigate back or reset form
+			if (isEditMode) {
+				navigate("/dashboard/posts");
+			} else {
+				setTitle("");
+				setContent("");
+				setIsPublished(false);
+				setImage(null);
+				setImageUrl("");
+			}
 		} catch (error) {
-			console.error("Error creating post", error);
+			console.error("Error submitting post", error);
 			setMessage(error.message);
 		}
 	};
@@ -94,12 +122,12 @@ const CreatePost = () => {
 			className="post-form"
 			encType="multipart/form-data"
 			onSubmit={handleSubmit}>
-			{/* display message */}
 			{message && (
 				<div className={`message-banner ${success ? "success" : "error"}`}>
 					{message}
 				</div>
 			)}
+
 			<input
 				type="text"
 				placeholder="Title"
@@ -110,38 +138,18 @@ const CreatePost = () => {
 
 			<Editor
 				apiKey="dk1rq41anieaefjx13uatdwqub4773ui0xyotmxpaa70h8vf"
-				// onInit={(_evt, editor) => (editorRef.current = editor)}
 				onEditorChange={setContent}
+				value={content}
 				init={{
 					height: 500,
 					menubar: true,
 					plugins: [
-						"advlist",
-						"autolink",
-						"lists",
-						"link",
-						"image",
-						"charmap",
-						"preview",
-						"anchor",
-						"searchreplace",
-						"visualblocks",
-						"code",
-						"fullscreen",
-						"insertdatetime",
-						"media",
-						"table",
-						"code",
-						"help",
-						"wordcount",
+						"advlist autolink lists link image charmap preview anchor",
+						"searchreplace visualblocks code fullscreen",
+						"insertdatetime media table code help wordcount",
 					],
 					toolbar:
-						"undo redo | blocks | " +
-						"bold italic forecolor | alignleft aligncenter " +
-						"alignright alignjustify | bullist numlist outdent indent | " +
-						"removeformat | help",
-					content_style:
-						"body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+						"undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
 					placeholder: "Start writing your blog post here...",
 					branding: false,
 				}}
@@ -155,6 +163,7 @@ const CreatePost = () => {
 					onChange={(e) => setIsPublished(e.target.checked)}
 				/>
 			</label>
+
 			<div>
 				<label>
 					Upload image:
@@ -177,9 +186,12 @@ const CreatePost = () => {
 					/>
 				</label>
 			</div>
-			<button type="submit">Create Post</button>
+
+			<button type="submit">
+				{isEditMode ? "Update Post" : "Create Post"}
+			</button>
 		</form>
 	);
 };
 
-export default CreatePost;
+export default PostForm;

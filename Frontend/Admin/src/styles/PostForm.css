@@ -39,3 +39,18 @@
 .post-form button:hover {
 	transform: scale(1.05);
 }
+.post-form .back-btn {
+	font-size: 2rem;
+	background-color: inherit;
+	color: var(--blue);
+	border: none;
+	padding: 0;
+}
+.post-form .update-btns {
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+}
+.post-form .update-btns .cancel-btn {
+	background-color: var(--red);
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { BiArrowBack } from "react-icons/bi";
 import "../styles/PostForm.css";
 
 const PostForm = () => {
@@ -128,6 +129,13 @@ const PostForm = () => {
 				</div>
 			)}
 
+			<button
+				type="button"
+				className="back-btn"
+				onClick={() => navigate("/dashboard/posts")}>
+				<BiArrowBack />
+			</button>
+
 			<input
 				type="text"
 				placeholder="Title"
@@ -187,9 +195,22 @@ const PostForm = () => {
 				</label>
 			</div>
 
-			<button type="submit">
-				{isEditMode ? "Update Post" : "Create Post"}
-			</button>
+			<div className="update-btns">
+				<button type="submit">
+					{isEditMode ? "Update Post" : "Create Post"}
+				</button>
+
+				{isEditMode ? (
+					<button
+						type="button"
+						className="cancel-btn"
+						onClick={() => navigate("/dashboard/posts")}>
+						Cancel
+					</button>
+				) : (
+					""
+				)}
+			</div>
 		</form>
 	);
 };

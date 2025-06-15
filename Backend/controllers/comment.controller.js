@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 import Comment from "../models/comment.model.js";
 import User from "../models/user.model.js";
 
@@ -65,7 +67,7 @@ export async function getCommentsByPost(req, res) {
 
 // DELETE comment
 export async function deleteComment(req, res) {
-  try {
+	try {
 		const { commentId } = req.params;
 		const userId = req.user.id;
 		const isAdmin = req.user.role === "admin";

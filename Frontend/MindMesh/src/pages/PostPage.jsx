@@ -17,6 +17,11 @@ const PostPage = () => {
 	const [message, setMessage] = useState("");
 	const { token, user } = useAuth();
 
+	// Add this debug log at the top
+	console.log("PostId from useParams:", postId);
+	console.log("PostId type:", typeof postId);
+	console.log("PostId length:", postId?.length);
+
 	useEffect(() => {
 		const fetchPost = async () => {
 			try {
@@ -41,6 +46,7 @@ const PostPage = () => {
 			try {
 				const comments = await fetchCommentsByPost(postId);
 				setComments(comments);
+				console.log("comments", comments);
 			} catch (error) {
 				console.error("Error fetching comments", error);
 			}
@@ -108,7 +114,7 @@ const PostPage = () => {
 												onClick={async () => {
 													try {
 														const res = await fetch(
-															`/api/posts/comments/${comment._id}`,
+															`/api/comments/${comment._id}`,
 															{
 																method: "DELETE",
 																headers: {

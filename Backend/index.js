@@ -26,10 +26,11 @@ app.get("/", (req, res) => {
 });
 
 // routes;
-app.use("/api/posts", postsRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/api", commentRoutes); 
-// app.use("/api/posts", commentRoutes);
+app.use("/api/comments", commentRoutes);
+app.use("/api/posts", postsRoutes);
+
+
 
 const PORT = process.env.PORT;
 // listen to app;

@@ -1,4 +1,23 @@
 import Comment from "../models/comment.model.js";
+import User from "../models/user.model.js";
+
+// get all comments
+export async function getAllComments(req, res) {
+	try {
+		const comments = await Comment.find()
+			.populate("author", "username")
+			.populate("postId", "title")
+			.sort({ createdAt: -1 });
+
+		res.status(200).json({ success: true, data: comments, message: "success" });
+	} catch (error) {
+		console.error("Error in getAllComments:", error);
+		res.status(500).json({
+			success: false,
+			message: "Server error",
+		});
+	}
+}
 
 // create a comment for a post;
 export async function createComment(req, res) {
@@ -25,6 +44,12 @@ export async function createComment(req, res) {
 export async function getCommentsByPost(req, res) {
 	try {
 		const { postId } = req.params;
+
+		if (!mongoose.Types.ObjectId.isValid(postId)) {
+			return res
+				.status(400)
+				.json({ success: false, message: "Invalid Post ID" });
+		}
 
 		const comments = await Comment.find({ postId })
 			.populate("author", "username")

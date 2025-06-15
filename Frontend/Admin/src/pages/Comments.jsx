@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { deleteComment, fetchAllComments } from "../utils/comments.js";
 import "../styles/Comments.css";
 import { RiDeleteBinLine } from "react-icons/ri";
@@ -17,7 +18,12 @@ const Comments = () => {
 				const data = await fetchAllComments();
 
 				setComments(data.data);
-				setMessage(data.message);
+
+				if (data.data.length === 0) {
+					setMessage("No comments found");
+					setSuccess(true);
+				}
+
 				setSuccess(data.success);
 			} catch (error) {
 				console.error("Error fetching comments", error);
@@ -82,7 +88,15 @@ const Comments = () => {
 						{comments.map((comment) => (
 							<tr key={comment._id}>
 								<td>{comment._id}</td>
-								<td>{comment.postId?.title || comment.postId || "N/A"}</td>
+								<td>
+									{comment.postId?.title ? (
+										<Link to={`/dashboard/posts/${comment.postId._id}`}>
+											{comment.postId.title}
+										</Link>
+									) : (
+										"Unknown"
+									)}
+								</td>
 
 								<td>{comment.content}</td>
 								<td>
@@ -98,7 +112,7 @@ const Comments = () => {
 											<RiDeleteBinLine />
 										</button>
 
-										<button type="button" className="update-btn">
+										<button type="button" className="update-btn" disabled>
 											<FaRegEdit />
 										</button>
 									</div>

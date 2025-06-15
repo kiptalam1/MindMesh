@@ -7,6 +7,7 @@ import Posts from "./components/Posts.jsx";
 import Post from "./components/Post.jsx";
 import PostForm from "./components/PostForm.jsx";
 import Logout from "./pages/Logout.jsx";
+import Comments from "./pages/Comments.jsx";
 
 const App = () => {
 	return (
@@ -21,6 +22,7 @@ const App = () => {
 					<Route path="posts/:postId" element={<Post />} />
 					<Route path="posts/new-post" element={<PostForm />} />
 					<Route path="posts/edit/:postId" element={<PostForm />} />
+					<Route path="comments" element={<Comments />} />
 				</Route>
 			</Routes>
 		</>

@@ -1,0 +1,41 @@
+.comments-page {
+	padding: 1rem;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th,
+td {
+	border: 1px solid #ccc;
+	padding: 0.5rem;
+	text-align: left;
+}
+
+th {
+	background-color: var(--bg);
+}
+.comments-page .act-buttons {
+	display: flex;
+	align-items: center;
+	gap: 1.25rem;
+	text-align: center;
+}
+.act-buttons button {
+	border: none;
+	font-size: 1.25rem;
+	cursor: pointer;
+	background-color: inherit;
+	transition: opacity 0.3s ease;
+}
+.act-buttons button:hover {
+	opacity: 0.4;
+}
+.update-btn {
+	color: var(--blue);
+}
+.delete-btn {
+	color: var(--red);
+}

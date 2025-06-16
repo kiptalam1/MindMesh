@@ -7,6 +7,7 @@ import "../styles/PostPage.css";
 import CommentForm from "../components/CommentForm";
 import { fetchCommentsByPost } from "../utils/comments.js";
 import { useAuth } from "../contexts/AuthContext";
+import { apiFetch } from "../utils/api.js";
 
 const PostPage = () => {
 	const { postId } = useParams();
@@ -17,11 +18,10 @@ const PostPage = () => {
 	const [message, setMessage] = useState("");
 	const { token, user } = useAuth();
 
-
 	useEffect(() => {
 		const fetchPost = async () => {
 			try {
-				const response = await fetch(`/api/posts/${postId}`);
+				const response = await apiFetch(`/api/posts/${postId}`);
 				if (!response.ok) {
 					throw new Error("Network response was not ok");
 				}
@@ -108,7 +108,7 @@ const PostPage = () => {
 											<button
 												onClick={async () => {
 													try {
-														const res = await fetch(
+														const res = await apiFetch(
 															`/api/comments/${comment._id}`,
 															{
 																method: "DELETE",

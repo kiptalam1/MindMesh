@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/LoginPage.css";
 import { useAuth } from "../contexts/AuthContext";
+import { apiFetch } from "../utils/api.js";
 
 const LoginPage = () => {
 	const [formData, setFormData] = useState({ email: "", password: "" });
@@ -18,7 +19,7 @@ const LoginPage = () => {
 		e.preventDefault();
 
 		try {
-			const res = await fetch("/api/auth/login", {
+			const res = await apiFetch("/api/auth/login", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PostCard from "../components/PostCard";
 import "../styles/PostsPage.css";
+import { apiFetch } from "../utils/api.js";
 
 const PostsPage = () => {
 	const [posts, setPosts] = useState([]);
@@ -9,7 +10,7 @@ const PostsPage = () => {
 	useEffect(() => {
 		const fetchPosts = async () => {
 			try {
-				const results = await fetch("/api/posts");
+				const results = await apiFetch("/api/posts");
 				const data = await results.json();
 				setPosts(data.data);
 				setLoading(false);

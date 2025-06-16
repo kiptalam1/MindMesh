@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import "../styles/CommentForm.css";
+import { apiFetch } from "../utils/api.js";
 
 const CommentForm = ({ postId, onCommentAdded }) => {
 	const [content, setContent] = useState("");
@@ -13,7 +14,7 @@ const CommentForm = ({ postId, onCommentAdded }) => {
 		if (!isAuthenticated) return;
 
 		try {
-			const response = await fetch(`/api/posts/${postId}/comments`, {
+			const response = await apiFetch(`/api/posts/${postId}/comments`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

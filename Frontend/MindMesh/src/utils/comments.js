@@ -1,7 +1,9 @@
+import { apiFetch } from "./api.js";
+
 // get comments from the backend by postId;
 export const fetchCommentsByPost = async (postId) => {
 	try {
-		const response = await fetch(`/api/posts/${postId}/comments`);
+		const response = await apiFetch(`/api/posts/${postId}/comments`);
 
 		if (!response.ok) {
 			throw new Error("Network response was not ok");

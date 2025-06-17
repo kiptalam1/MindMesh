@@ -1,6 +1,8 @@
+import { adminApiFetch } from "./api.js";
+
 export async function fetchAllComments() {
 	try {
-		const res = await fetch("/api/comments");
+		const res = await adminApiFetch("/api/comments");
 		if (!res.ok) {
 			throw new Error("Network response was not ok");
 		}
@@ -22,7 +24,7 @@ export async function fetchAllComments() {
 
 export async function deleteComment(commentId, token) {
 	try {
-		const res = await fetch(`/api/comments/${commentId}`, {
+		const res = await adminApiFetch(`/api/comments/${commentId}`, {
 			method: "DELETE",
 			headers: {
 				Authorization: `Bearer ${token}`,

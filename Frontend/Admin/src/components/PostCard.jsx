@@ -5,6 +5,7 @@ import "../styles/PostCard.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useEffect, useState } from "react";
+import { adminApiFetch } from "../utils/api.js";
 
 const PostCard = ({ post, onPostDelete }) => {
 	const formattedDate = new Date(post.createdAt).toLocaleDateString();
@@ -26,7 +27,7 @@ const PostCard = ({ post, onPostDelete }) => {
 
 	const handleDelete = async () => {
 		try {
-			const res = await fetch(`/api/posts/${post._id}`, {
+			const res = await adminApiFetch(`/api/posts/${post._id}`, {
 				method: "DELETE",
 				headers: {
 					Authorization: `Bearer ${token}`,

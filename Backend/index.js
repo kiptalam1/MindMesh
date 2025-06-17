@@ -19,17 +19,35 @@ const app = express();
 app.use(express.json());
 app.use(passport.initialize());
 // connect to frontend;
-// CORS Configuration - IMPORTANT FOR PRODUCTION
+//- IMPORTANT FOR PRODUCTION
+// CORS Configuration for Multiple Frontends
 const corsOptions = {
-	origin: [
-		"http://localhost:5173", // Vite dev server
-		"http://localhost:5000",
-		"https://mind-mesh-two.vercel.app",
-	],
-	credentials: true, // Important if you're using cookies/sessions
+	origin: function (origin, callback) {
+		const allowedOrigins = [
+			// Development environments
+			"http://localhost:5173", // Frontend 1 (Vite default)
+			"http://localhost:3000", // Frontend 2
+
+			// Production environments
+			"https://mind-mesh-two.vercel.app", // User-facing frontend
+			"https://mind-mesh-admin.vercel.app", // Admin panel frontend
+		];
+
+		// Allow requests with no origin (mobile apps, Postman, etc.)
+		if (!origin) return callback(null, true);
+
+		if (allowedOrigins.includes(origin)) {
+			callback(null, true);
+		} else {
+			console.log(`CORS blocked request from: ${origin}`);
+			callback(new Error("Not allowed by CORS"));
+		}
+	},
+	credentials: true, // Important for authentication cookies/headers
+	methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+	allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
 	optionsSuccessStatus: 200,
 };
-
 app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {

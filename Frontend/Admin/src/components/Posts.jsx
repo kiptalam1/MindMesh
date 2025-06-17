@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import PostCard from "./PostCard";
 import "../styles/Posts.css";
+import { adminApiFetch } from "../utils/api.js";
 
 const Posts = () => {
 	const [posts, setPosts] = React.useState([]);
@@ -13,7 +14,7 @@ const Posts = () => {
 	React.useEffect(() => {
 		const fetchAllPosts = async () => {
 			try {
-				const response = await fetch("/api/posts");
+				const response = await adminApiFetch("/api/posts");
 
 				// Check if response is ok before parsing JSON
 				if (!response.ok) {

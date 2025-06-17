@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { jwtDecode } from "jwt-decode"; // make sure this is installed
 import "../styles/LoginForm.css";
+import { adminApiFetch } from "../utils/api.js";
 
 const LoginForm = () => {
 	const [message, setMessage] = useState("");
@@ -18,7 +19,7 @@ const LoginForm = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await fetch("/api/auth/login", {
+			const response = await adminApiFetch("/api/auth/login", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

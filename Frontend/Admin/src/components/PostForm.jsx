@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { BiArrowBack } from "react-icons/bi";
 import "../styles/PostForm.css";
+import { adminApiFetch } from "../utils/api.js";
 
 const PostForm = () => {
 	const { postId } = useParams(); // null when creating, set when editing
@@ -24,7 +25,7 @@ const PostForm = () => {
 		if (isEditMode) {
 			const fetchPost = async () => {
 				try {
-					const res = await fetch(`/api/posts/${postId}`);
+					const res = await adminApiFetch(`/api/posts/${postId}`);
 					if (!res.ok) throw new Error("Failed to fetch post");
 					const data = await res.json();
 
@@ -75,7 +76,7 @@ const PostForm = () => {
 		}
 
 		try {
-			const res = await fetch(`/api/posts/${postId || ""}`, {
+			const res = await adminApiFetch(`/api/posts/${postId || ""}`, {
 				method: isEditMode ? "PUT" : "POST",
 				headers: {
 					Authorization: `Bearer ${token}`,

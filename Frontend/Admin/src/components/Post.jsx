@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useNavigate, useParams } from "react-router-dom";
 import "../styles/Post.css";
+import { adminApiFetch } from "../utils/api.js";
 
 const Post = () => {
 	const { postId } = useParams();
@@ -15,7 +16,7 @@ const Post = () => {
 		const fetchSinglePost = async () => {
 			try {
 				// fetch post from the api;
-				const response = await fetch(`/api/posts/${postId}`);
+				const response = await adminApiFetch(`/api/posts/${postId}`);
 				// check if response is okay before parsing json;
 				if (!response.ok) {
 					throw new Error(`HTTP error! status: ${response.status}`);

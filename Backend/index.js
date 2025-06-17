@@ -19,7 +19,18 @@ const app = express();
 app.use(express.json());
 app.use(passport.initialize());
 // connect to frontend;
-app.use(cors());
+// CORS Configuration - IMPORTANT FOR PRODUCTION
+const corsOptions = {
+	origin: [
+		"http://localhost:5173", // Vite dev server
+		"http://localhost:5000",
+		"https://mind-mesh-two.vercel.app",
+	],
+	credentials: true, // Important if you're using cookies/sessions
+	optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
 	res.json({ message: "welcome home" });
